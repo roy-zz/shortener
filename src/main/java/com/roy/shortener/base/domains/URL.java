@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
         @UniqueConstraint(name = "uk_origin", columnNames = {"origin"})
     }
 )
-public class Url implements Serializable {
+public class URL implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

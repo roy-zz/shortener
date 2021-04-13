@@ -1,5 +1,11 @@
 package com.roy.shortener.base.exceptions;
 
-public class DataNotFoundException {
+import com.roy.shortener.base.enums.ExceptionCode;
+
+public class DataNotFoundException extends AbstractException {
+
+  public DataNotFoundException(ExceptionCode code) {
+    super(code);
+  }
 
 }
