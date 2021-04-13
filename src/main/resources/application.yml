@@ -15,3 +15,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+server:
+  port: 8888
+  tomcat:
+    use-relative-redirects: true
