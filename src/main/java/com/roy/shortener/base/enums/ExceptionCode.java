@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ExceptionCode {
 
   // @formatter:off
-  DATA_NOT_FOUND(30000);
+  INVALID_URL(10000),
+  DATA_NOT_FOUND(10001);
   // @formatter:on
 
   int value;

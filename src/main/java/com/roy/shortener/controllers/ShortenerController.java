@@ -1,16 +1,21 @@
 package com.roy.shortener.controllers;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.roy.shortener.services.URLService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/shortener")
+@RequestMapping("/url")
+@RequiredArgsConstructor
 public class ShortenerController {
 
-  @PostMapping(value = "/shorten", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String shortenUrl() {
-    return null;
+  private final URLService urlService;
+
+  @GetMapping(value = "/shorten")
+  public String shortenUrl(@RequestParam String originURL) throws Exception {
+    return urlService.shortenURL(originURL);
   }
 }
