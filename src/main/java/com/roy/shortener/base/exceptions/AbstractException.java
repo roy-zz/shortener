@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public abstract class AbstractException extends RuntimeException {
+public abstract class AbstractException extends Exception {
 
   ExceptionCode code;
 
