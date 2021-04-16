@@ -1,6 +1,7 @@
-package com.roy.shortener.services;
+package com.roy.shortener.unit.services;
 
 import com.roy.shortener.repositories.UrlRepository;
+import com.roy.shortener.services.UrlService;
 import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
