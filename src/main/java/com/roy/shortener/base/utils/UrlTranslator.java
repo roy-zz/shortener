@@ -5,8 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UrlTranslator {
 
-  private final String DOMAIN = "localhost";
-  private final String URL_PREFIX = String.format("http://%s/", DOMAIN);
+  private final String URL_PREFIX = "localhost:8888/";
   private final String BASE62_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   public String urlEncoder(long id) {
