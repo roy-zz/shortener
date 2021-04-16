@@ -24,8 +24,6 @@ public class UrlTranslator {
 
   public long urlDecoder(String url) {
 
-    url = url.replace(URL_PREFIX, "");
-
     long sum = 0;
     long power = 1;
 

@@ -32,6 +32,7 @@ public class Url implements Serializable {
   @Column(columnDefinition = "VARCHAR(1000) NOT NULL COMMENT '변경전 주소'")
   private String origin;
 
+  @Builder.Default
   @Column(columnDefinition = "INT(20) DEFAULT 0 COMMENT '변경 요청 횟수'")
   private Integer requestedCount = 0;
 

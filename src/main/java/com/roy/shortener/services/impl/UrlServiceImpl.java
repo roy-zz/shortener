@@ -8,7 +8,6 @@ import com.roy.shortener.base.exceptions.InvalidParameterException;
 import com.roy.shortener.base.utils.UrlTranslator;
 import com.roy.shortener.repositories.UrlRepository;
 import com.roy.shortener.services.UrlService;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -80,9 +79,9 @@ public class UrlServiceImpl implements UrlService {
 
     String[] protocols = {"http://", "https://"};
 
-    Arrays.stream(protocols).forEach(i -> {
-      originUrl.replace(i, "");
-    });
+    for (String protocol : protocols) {
+      originUrl = originUrl.replace(protocol, "");
+    }
 
     return originUrl;
   }
