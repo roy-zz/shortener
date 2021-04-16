@@ -18,10 +18,10 @@ public class UIController {
     return "index";
   }
 
-  @RequestMapping("/{shortenedUrl:[0-9a-zA-Z]+}")
+  @RequestMapping("/{shortenedUrl}")
   public String redirect(@PathVariable String shortenedUrl) throws Exception {
 
     return String.format("redirect:http://%s", urlService.findOriginUrl(shortenedUrl));
-    
+
   }
 }

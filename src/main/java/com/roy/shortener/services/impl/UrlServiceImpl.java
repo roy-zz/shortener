@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,13 +22,14 @@ public class UrlServiceImpl implements UrlService {
   private final UrlTranslator urlTranslator;
 
   @Override
+  @Transactional
   public UrlShortenResponseDTO shortenUrl(String originUrl) throws Exception {
 
     if (Boolean.FALSE == isValidUrl(originUrl)) {
       throw new InvalidParameterException(ExceptionCode.INVALID_URL);
     }
 
-    Url url = updateOrSaveUrl(originUrl);
+    Url url = updateOrSaveUrl(this.removeProtocol(originUrl));
 
     return UrlShortenResponseDTO.builder()
         .originUrl(originUrl)
@@ -39,9 +41,8 @@ public class UrlServiceImpl implements UrlService {
   @Override
   public boolean isValidUrl(String url) {
 
-    url = removeProtocol(url);
-
-    Pattern pattern = Pattern.compile("^(?:www\\.)?[a-zA-Z0-9./]+$");
+    Pattern pattern = Pattern.compile(
+        "^(((http(s?))\\:\\/\\/)?)([0-9a-zA-Z\\-]+\\.)+[a-zA-Z]{2,6}(\\:[0-9]+)?(\\/\\S*)?$");
     Matcher matcher = pattern.matcher(url);
     boolean isContainDot = url.contains(".");
 
@@ -85,4 +86,5 @@ public class UrlServiceImpl implements UrlService {
 
     return originUrl;
   }
+
 }
