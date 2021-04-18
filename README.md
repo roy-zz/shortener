@@ -1,50 +1,9 @@
 ## URL 단축 서비스
 
-### 설치 / 빌드
-* 설치 및 빌드 방법과 영상은 centos7 기준으로 작성되었습니다.
-
-* java 11 설치
-```console
-// 설치
-$ sudo yum install java-11-openjdk-devel
-// 설치 확인
-$ java -version
-openjdk version "11.0.10" 2010-01-19 LTS
-OpenJDK Runtime Environment 18.9 (build 11.0.10+9-LTS)
-OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode, sharing)
-```
-
-* gradle 설치
-```console
-// 설치
-$ wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
-$ sudo mkdir /opt/gradle
-$ unzip -d /opt/gradle gradle-6.8.3-bin.zip
-// 환경변수 설정
-$ export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
-// 설치 확인
-$ gradle -v
-```
-
-* 프로젝트 다운로드
-```console
-// git 설치
-$ sudo yum install git
-// 프로젝트 다운로드
-$ git clone https://github.com/roy-zz/shortener.git
-```
-
-* 프로젝트 빌드 및 실행
-```console
-$ cd shortener
-$ gradle build
-$ gradle run
-```
-
-* 접속 주소 = `http://localhost:8888`
-* h2 콘솔 접속 주소 `http://localhost:8888/h2-console` (계정 정보는 application.yml 참고)
-
 ### 프로젝트 설명
+
+![](https://user-images.githubusercontent.com/74298434/115139581-9d8bdb00-a06d-11eb-8d97-114a7c9bccf4.png)
+
 URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원래 URL로 리다이렉트하는 URL Shortening Service
 
 예) https://en.wikipedia.org/wiki/URL_shortening => http://localhost/JZfOQNro
@@ -93,3 +52,49 @@ CREATE TABLE `url`
 * origin = 클라이언트에게 입력받은 단축되지 않은 url
 
 * requested_count = 단축 요청받은 횟수 
+
+### 설치 / 빌드
+* 설치 및 빌드 방법과 영상은 centos7 기준으로 작성되었습니다.
+
+[![](https://i9.ytimg.com/vi/sDbHux4ji_w/mq1.jpg?sqp=CIzj74MG&rs=AOn4CLBB8xluJyMx2G1JLCk6zSBLIYMu5Q&retry=4)](https://youtu.be/sDbHux4ji_w) 
+
+* java 11 설치
+```console
+// 설치
+$ sudo yum install java-11-openjdk-devel
+// 설치 확인
+$ java -version
+openjdk version "11.0.10" 2010-01-19 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.10+9-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode, sharing)
+```
+
+* gradle 설치
+```console
+// 설치
+$ wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
+$ sudo mkdir /opt/gradle
+$ unzip -d /opt/gradle gradle-6.8.3-bin.zip
+// 환경변수 설정
+$ export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
+// 설치 확인
+$ gradle -v
+```
+
+* 프로젝트 다운로드
+```console
+// git 설치
+$ sudo yum install git
+// 프로젝트 다운로드
+$ git clone https://github.com/roy-zz/shortener.git
+```
+
+* 프로젝트 빌드 및 실행
+```console
+$ cd shortener
+$ gradle build
+$ gradle run
+```
+
+* 접속 주소 = `http://localhost:8888`
+* h2 콘솔 접속 주소 `http://localhost:8888/h2-console` (계정 정보는 application.yml 참고)
