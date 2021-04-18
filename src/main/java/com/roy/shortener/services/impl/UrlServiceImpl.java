@@ -21,6 +21,7 @@ public class UrlServiceImpl implements UrlService {
 
   private final UrlRepository urlRepository;
   private final UrlTranslator urlTranslator;
+  private final String URL_PREFIX = "localhost:8888/";
 
   @Override
   @Transactional
@@ -34,9 +35,11 @@ public class UrlServiceImpl implements UrlService {
 
     return UrlShortenResponseDTO.builder()
         .originUrl(originUrl)
-        .shortenUrl(urlTranslator.urlEncoder(url.getId()))
+        .shortenUrl(String.format("%s%s", URL_PREFIX, urlTranslator.urlEncoder(url.getId())))
         .requestedCount(url.getRequestedCount())
         .build();
+
+
   }
 
   @Override

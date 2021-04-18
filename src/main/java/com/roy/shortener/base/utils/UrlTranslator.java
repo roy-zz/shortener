@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UrlTranslator {
 
-  private final String URL_PREFIX = "localhost:8888/";
   private final String BASE62_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   public String urlEncoder(long id) {
@@ -17,7 +16,7 @@ public class UrlTranslator {
       id /= BASE62_CHARACTERS.length();
     }
 
-    return String.format("%s%s", URL_PREFIX, stringBuffer.toString());
+    return stringBuffer.toString();
 
   }
 
