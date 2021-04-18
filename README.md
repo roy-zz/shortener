@@ -56,7 +56,7 @@ CREATE TABLE `url`
 ### 설치 / 빌드
 * 설치 및 빌드 방법과 영상은 centos7 기준으로 작성되었습니다.
 
-<iframe width="640" height="360" src="https://youtu.be/sDbHux4ji_w" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+[![](https://i9.ytimg.com/vi/sDbHux4ji_w/mq1.jpg?sqp=CIzj74MG&rs=AOn4CLBB8xluJyMx2G1JLCk6zSBLIYMu5Q&retry=4)](https://youtu.be/sDbHux4ji_w) 
 
 * java 11 설치
 ```console
