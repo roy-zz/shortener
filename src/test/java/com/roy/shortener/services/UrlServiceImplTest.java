@@ -2,10 +2,11 @@ package com.roy.shortener.services;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import com.roy.shortener.base.domains.Url;
 import com.roy.shortener.base.exceptions.DataNotFoundException;
+import com.roy.shortener.base.exceptions.OutOfLengthException;
 import com.roy.shortener.base.utils.UrlTranslator;
 import com.roy.shortener.repositories.UrlRepository;
 import com.roy.shortener.services.impl.UrlServiceImpl;
@@ -67,7 +68,7 @@ class UrlServiceImplTest {
 
   @Test
   @DisplayName("단축된 URL 저장 및 업데이트 테스트")
-  void updateOrSaveUrl() {
+  void updateOrSaveUrl() throws Exception {
 
     final String originUrl = "www.google.com";
 
@@ -96,19 +97,62 @@ class UrlServiceImplTest {
           }
         });
 
+    given(this.urlTranslator.urlEncoder(1L))
+            .willReturn("B");
+
     Assertions.assertEquals(expectedResultForCase1, this.urlService.updateOrSaveUrl(originUrl));
+
+    reset(this.urlRepository);
 
     // CASE - 2
     // 같은 URL이 없는 경우 새로운 엔티티를 생성하여 저장한다.
     Url expectedResultForCase2 = Url.builder()
-        .origin(originUrl)
-        .requestedCount(1)
-        .build();
+            .id(1L)
+            .origin(originUrl)
+            .requestedCount(1)
+            .build();
 
     given(this.urlRepository.findTopByOrigin(originUrl))
         .willReturn(Optional.empty());
 
+    when(this.urlRepository.save(any()))
+            .thenAnswer(new Answer<Url>() {
+              public Url answer(InvocationOnMock invocation) {
+                Object[] arguments = invocation.getArguments();
+                return expectedResultForCase2;
+              }
+            });
+
+    given(this.urlTranslator.urlEncoder(1L))
+            .willReturn("B");
+
     Assertions.assertEquals(expectedResultForCase2, this.urlService.updateOrSaveUrl(originUrl));
+
+    reset(this.urlRepository);
+
+    // CASE - 3
+    // 단축 URL의 길이가 8을 초과하는 경우 OutOfLengthException 이 발생한다.
+    Url hasMaxIdUrl = Url.builder()
+            .origin(originUrl)
+            .id(Long.MAX_VALUE)
+            .requestedCount(1)
+            .build();
+
+    given(this.urlRepository.findTopByOrigin(originUrl))
+            .willReturn(Optional.of(hasMaxIdUrl));
+
+    when(this.urlRepository.save(any()))
+            .thenAnswer(new Answer<Url>() {
+              public Url answer(InvocationOnMock invocation) {
+                Object[] arguments = invocation.getArguments();
+                return (Url) arguments[0];
+              }
+            });
+
+    given(this.urlTranslator.urlEncoder(Long.MAX_VALUE))
+            .willReturn("OUT_OF_LENGTH");
+
+    Assertions.assertThrows(OutOfLengthException.class, () -> this.urlService.updateOrSaveUrl(originUrl));
 
   }
 

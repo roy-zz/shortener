@@ -1,17 +1,20 @@
 ## URL 단축 서비스
 
 ### 설치 / 빌드
-- 설치 및 빌드 방법과 영상은 centos7 기준으로 작성되었습니다.
+* 설치 및 빌드 방법과 영상은 centos7 기준으로 작성되었습니다.
 
-- java 설치
+* java 11 설치
 ```console
 // 설치
-$ sudo yum install java-1.8.0-openjdk-devel
+$ sudo yum install java-11-openjdk-devel
 // 설치 확인
 $ java -version
+openjdk version "11.0.10" 2010-01-19 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.10+9-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.10+9-LTS, mixed mode, sharing)
 ```
 
-- gradle 설치
+* gradle 설치
 ```console
 // 설치
 $ wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
@@ -23,7 +26,7 @@ $ export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
 $ gradle -v
 ```
 
-- 프로젝트 다운로드
+* 프로젝트 다운로드
 ```console
 // git 설치
 $ sudo yum install git
@@ -31,7 +34,7 @@ $ sudo yum install git
 $ git clone https://github.com/roy-zz/shortener.git
 ```
 
-- 프로젝트 빌드 및 실행
+* 프로젝트 빌드 및 실행
 ```console
 $ cd shortener
 $ gradle build
@@ -56,6 +59,7 @@ URL을 입력받아 짧게 줄여주고, Shortening된 URL을 입력하면 원�
 * URL Shortening Key는 8 Character 이내로 생성되어야 합니다.
 
   - 단축된 URL이 `https://localhost:8888/{shortening_key}` 라고 하였을 때 shortening_key 는 OriginURL 이 저장된 row의 ID를 Base62 encoding 한 값이 되도록 구현
+  - 단축된 ULR의 길이가 8을 초과하는 경우 OutOfLengthException 발생
   
 * 동일한 URL에 대한 요청은 동일한 Shortening Key로 응답해야 합니다.
 * 동일한 URL에 대한 요청 수 정보를 가져야 한다(화면 제공 필수 아님)  

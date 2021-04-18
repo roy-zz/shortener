@@ -9,7 +9,7 @@ public interface UrlService {
 
   boolean isValidUrl(String url);
 
-  Url updateOrSaveUrl(String originUrl);
+  Url updateOrSaveUrl(String originUrl) throws Exception;
 
   String findOriginUrl(String shortenedUrl) throws Exception;
 

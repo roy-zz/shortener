@@ -5,6 +5,7 @@ import com.roy.shortener.base.dtos.UrlShortenResponseDTO;
 import com.roy.shortener.base.enums.ExceptionCode;
 import com.roy.shortener.base.exceptions.DataNotFoundException;
 import com.roy.shortener.base.exceptions.InvalidParameterException;
+import com.roy.shortener.base.exceptions.OutOfLengthException;
 import com.roy.shortener.base.utils.UrlTranslator;
 import com.roy.shortener.repositories.UrlRepository;
 import com.roy.shortener.services.UrlService;
@@ -50,7 +51,7 @@ public class UrlServiceImpl implements UrlService {
   }
 
   @Override
-  public Url updateOrSaveUrl(String originUrl) {
+  public Url updateOrSaveUrl(String originUrl) throws Exception {
 
     Url storedUrl = urlRepository.findTopByOrigin(originUrl).orElseGet(() ->
         Url.builder()
@@ -60,7 +61,13 @@ public class UrlServiceImpl implements UrlService {
 
     storedUrl.setRequestedCount(storedUrl.getRequestedCount() + 1);
 
-    return urlRepository.save(storedUrl);
+    Url savedUrl = urlRepository.save(storedUrl);
+
+    if (urlTranslator.urlEncoder(savedUrl.getId()).length() > 8) {
+      throw new OutOfLengthException(ExceptionCode.OUT_OF_LENGTH);
+    }
+
+    return savedUrl;
 
   }
 
