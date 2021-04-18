@@ -6,7 +6,7 @@
 - java 설치
 ```console
 // 설치
-$ sudo yum install java-11-openjdk-devel
+$ sudo yum install java-1.8.0-openjdk-devel
 // 설치 확인
 $ java -version
 ```
@@ -18,21 +18,22 @@ $ wget https://services.gradle.org/distributions/gradle-6.8.3-bin.zip
 $ sudo mkdir /opt/gradle
 $ unzip -d /opt/gradle gradle-6.8.3-bin.zip
 // 환경변수 설정
-export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
+$ export PATH=$PATH:/opt/gradle/gradle-6.8.3/bin
 // 설치 확인
 $ gradle -v
 ```
 
-- 프로젝트 설치
+- 프로젝트 다운로드
 ```console
-$ wget https://github.com/roy-zz/shortener/archive/refs/heads/main.zip
-$ mkdir {PROJECT_HOME}
-$ unzip -d /{PROJECT_HOME} main.zip
+// git 설치
+$ sudo yum install git
+// 프로젝트 다운로드
+$ git clone https://github.com/roy-zz/shortener.git
 ```
 
 - 프로젝트 빌드 및 실행
 ```console
-$ cd {PROJECT_HOME}
+$ cd shortener
 $ gradle build
 $ gradle run
 ```
